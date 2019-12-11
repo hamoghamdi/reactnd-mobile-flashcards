@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs'
+import { createStackNavigator } from "react-navigation-stack";
 import Decks from './components/Decks'
 import AddDeck from './components/AddDeck'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -12,13 +13,17 @@ import { Provider } from "react-redux";
 import decks from './redux/decks'
 import middleware from './redux/middleware'
 
+import DeckPage from './components/DeckPage'
+import AddCard from "./components/AddCard";
+
+
 const store = createStore(decks, middleware);
 export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={{ flex: 1, marginTop: 80 }}>
-          <Text>Open up App.js to start working on your app!</Text>
+        <View style={{ flex: 1 }}>
+          
           <MainNav />
         </View>
       </Provider>
@@ -26,10 +31,25 @@ export default class App extends Component {
   }
 }
 
+// from decks tab to A deck
+
+const DecksStack = createStackNavigator({
+  Decks: Decks,
+  DeckPage: DeckPage,
+  AddCard: AddCard
+});
+
+// from add deck toab to A deck 
+const AddDeckStack = createStackNavigator({
+  AddDeck: AddDeck,
+  DeckPage: {
+    screen: DeckPage
+  }
+});
 
 const Tabs = {
   Decks: {
-    screen: Decks,
+    screen: DecksStack,
     navigationOptions: {
       tabBarLabel: "Decks",
       tabBarIcon: ({ tintColor }) => (
@@ -38,7 +58,7 @@ const Tabs = {
     }
   },
   AddDeck: {
-    screen: AddDeck,
+    screen: AddDeckStack,
     navigationOptions: {
       tabBarLabel: "Add Deck",
       tabBarIcon: ({ tintColor }) => (
@@ -46,7 +66,7 @@ const Tabs = {
       )
     }
   }
-}
+};
 
   const TabsNavConfig = {
     navigationOptions: {

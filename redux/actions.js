@@ -43,6 +43,7 @@ export function handleAddCard(deckID, content) {
   // { question, answer }, deckID
   return dispatch => {
     const newCard = { [generateID()]: content };
+    console.log("this is handle addd card ",deckID);
     dispatch(addCard(deckID, newCard));
   };
 }
