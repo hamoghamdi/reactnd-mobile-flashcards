@@ -9,43 +9,38 @@ import { handleAddDeck } from '../redux/actions'
 
 class AddDeck extends Component {
     state = {
-        text:""
+        text:"",
+        redirect: false,
+        title: ""
     }
 
     handleSubmit = () => {
       this.props.dispatch(handleAddDeck(this.state.text))
-        // const { decks } = this.props;
-        // let deckID = "";
-        // const deckValues = Object.values(decks);
-        // console.log("object values,,,, ", deckValues);
-        // if (deckValues != []){
-        //     Object.values(decks).map(item => {
-        //       console.log(" state text out before if ", this.state.text);
 
-        //       if (item.title === this.state.text) {
-        //         console.log(" state text in if ", this.state.text);
-        //         deckID = item.id;
-        //         return deckID;
-        //       }
-        //     });
-        //     console.log(
-        //       "deck id in submit add deck ..",
-        //       deckID,
-        //       " .. title in text state ",
-        //       this.state.text
-        //     );
-        // }   
-          
-        // this.props.navigation.navigate("DeckPage", { deckID });
-
-      
-        this.setState(()=>{
-            return { text: ""}
+        this.setState((prev, props)=>{
+            return {
+              title: prev.text,
+              text: "",
+              redirect: true
+            }
         })
+        
         
     }
     render() {
-      // state => redirect: true, filter through decks using title then navigate to specific page 
+      
+      const { decksValues } = this.props
+      const { title, redirect} = this.state
+      let theID = ""
+      if(redirect){
+        decksValues.map(deck => {
+          if (deck.title === title){
+            theID = deck.id;
+          } 
+        });
+        return this.props.navigation.navigate("DeckPage", { deckID: theID })
+
+      } else {
         return (
           <View style={styles.adddeck}>
             <Text>Add a new deck:</Text>
@@ -61,15 +56,19 @@ class AddDeck extends Component {
             </TouchableOpacity>
           </View>
         );
+        }
     }
 }
 
 function mapStateToProps(decks){
   console.log("state . decks //////////", decks)
+  const decksValues = Object.values(decks);
+  console.log("these are values ,,,,,, !!!!!!!!!!!", decksValues);
  
   return {
-    decks
-  }
+    decks,
+    decksValues
+  };
 }
 
 export default connect(mapStateToProps)(AddDeck);
@@ -90,8 +89,3 @@ const styles = StyleSheet.create({
     color: white
   }
 });
-
-// connect to store -DONE 
-// get title from input -handle change ---onChangeText -DONE
-// dispatch add deck - DONE
-// handle submit => redirect to decks page , something.navigate() 

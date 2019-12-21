@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, AsyncStorage } from "react-native";
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from "react-navigation-stack";
@@ -17,9 +17,16 @@ import DeckPage from './components/DeckPage'
 import AddCard from "./components/AddCard";
 import QuizPage from './components/QuizPage'
 
+import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
+
+const NOTIFICATION_KEY = "flashcards:notifications";
 
 const store = createStore(decks, middleware);
 export default class App extends Component {
+  componentDidMount(){
+    setLocalNotification()
+  }
   render() {
     return (
       <Provider store={store}>
@@ -108,3 +115,50 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+// Notifications
+function createNotification() {
+  return {
+    title: "Mobile Flashcards",
+    body: "Don't forget to take your quiz for the day!",
+    ios: {
+      sound: true
+    },
+    andriod: {
+      sound: true,
+      vibrate: true,
+      priority: "high",
+      sticky: false
+    }
+  };
+}
+function setLocalNotification() {
+  AsyncStorage.getItem(NOTIFICATION_KEY)
+    .then(JSON.parse)
+    .then(data => {
+      if (data === null) {
+        Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
+          if (status === "granted") {
+            Notifications.cancelAllScheduledNotificationsAsync();
+
+            let tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            today.setHours(14);
+            today.setMinutes(38);
+
+            Notifications.scheduleLocalNotificationAsync(createNotification(), {
+              time: tomorrow,
+              repeat: "day"
+            });
+
+            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+          }
+        });
+      }
+    });
+}
+// clear notification
+function clearLocalNotification() {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
+    Notifications.cancelAllScheduledNotificationsAsync
+  );
+}
