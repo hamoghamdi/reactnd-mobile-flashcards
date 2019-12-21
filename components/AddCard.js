@@ -32,6 +32,7 @@ class AddCard extends Component {
     render() {
         return (
           <View style={styles.addcard}>
+            <Text>Question</Text>
             <TextInput
               label="Question"
               style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
@@ -39,10 +40,11 @@ class AddCard extends Component {
               placeholder="Question"
               value={this.state.question}
             />
+            <Text>Answer</Text>
             <TextInput
               label="Answer"
               style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-              onChangeText={text => this.setState({ answer:text })}
+              onChangeText={text => this.setState({ answer: text })}
               placeholder="Answer"
               value={this.state.answer}
             />

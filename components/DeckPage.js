@@ -13,7 +13,6 @@ class DeckPage extends Component {
           <View>
             <View style={styles.deckCard}>
               <Text>Title: {deckDetails.title}</Text>
-              <Text>ID: {id}</Text>
               <Text>Cards: {deckDetails.cards.length}</Text>
             </View>
             <TouchableOpacity

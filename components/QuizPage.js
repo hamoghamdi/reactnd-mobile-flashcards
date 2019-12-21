@@ -10,13 +10,6 @@ import { connect } from "react-redux";
 
 import { red, white } from "../utils/colors";
 
-// function Card({ question, answer }) {
-//   return (
-//     <View>
-//         <Text>{question}</Text>
-//     </View>
-//   );
-// }
 class QuizPage extends Component {
   state = {
     score: 0,
@@ -47,9 +40,20 @@ class QuizPage extends Component {
       }
     })
   }
+  reset = () => {
+    this.setState(()=>{
+      return {
+        score: 0,
+        step: 0,
+        showQuestion: true
+      };
+    })
+  }
+  backToDeck = () => {
 
+  }
   render() {
-    const { cards, deckDetails } = this.props;
+    const { cards, deckDetails, id } = this.props;
     const { score, step, showQuestion } = this.state;
     if (step < cards.length) {
       // step 1/3, card 1/3
@@ -58,7 +62,7 @@ class QuizPage extends Component {
         return (
           <View style={styles.adddeck}>
             <Text>
-              This is card {step} of {cards.length}
+              This is card {step+1} of {cards.length}
             </Text>
             <Text>Question is: {cards[step].question}</Text>
             <TouchableOpacity
@@ -74,7 +78,7 @@ class QuizPage extends Component {
         return (
           <View style={styles.adddeck}>
             <Text>
-              This is card {step} of {cards.length}
+              This is card {step+1} of {cards.length}
             </Text>
             <Text>answer is: {cards[step].answer}</Text>
             <TouchableOpacity
@@ -96,6 +100,17 @@ class QuizPage extends Component {
     return (
       <View style={styles.adddeck}>
         <Text>Your score is {score}</Text>
+        <TouchableOpacity style={styles.submitButton} onPress={this.reset}>
+          <Text style={styles.submitButtonText}>Restart Quiz</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.submitButton}
+          onPress={() =>
+            this.props.navigation.navigate("DeckPage", { deckID: id })
+          }
+        >
+          <Text style={styles.submitButtonText}>Go Back</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -143,14 +158,3 @@ const styles = StyleSheet.create({
     height: 40
   }
 });
-
-// main page: quistion, show answer button
-// => answer shown, buttons: correct, incorrect that keep track of score (2/4 correct answers)
-// wehn a button is clicked(correct/incorrect), 1- update score, 2- go to the next card (question)
-
-//  <View>
-//         <Text>This is Quiz page</Text>
-//         {cards.map((index, item)=>{
-//             return <Card {...item} correct={this.correctSubmit} incorrect={this.incorrectSubmit}/>
-//         })}
-//       </View>
