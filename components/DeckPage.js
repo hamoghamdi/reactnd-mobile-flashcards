@@ -18,14 +18,18 @@ class DeckPage extends Component {
             </View>
             <TouchableOpacity
               style={styles.submitButton}
-              onPress={() => this.props.navigation.navigate('AddCard', {deckID: id})}
+              onPress={() =>
+                this.props.navigation.navigate("AddCard", { deckID: id })
+              }
             >
               <Text style={styles.submitButtonText}>Add Card</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.submitButton}
-              onPress={() => console.log("Start quiz")}
+              onPress={() =>
+                this.props.navigation.navigate("QuizPage", { deckID: id })
+              }
             >
               <Text style={styles.submitButtonText}>Start Quiz</Text>
             </TouchableOpacity>
@@ -38,7 +42,7 @@ function mapStateToProps(decks, props){
     const id = props.navigation.state.params.deckID;
     const deckDetails = decks[id]
     console.log("deck details.. ", deckDetails)
-    console.log("deckID ..", id)
+    console.log("deckID in connect deck page..", id)
 
     return {
         decks,

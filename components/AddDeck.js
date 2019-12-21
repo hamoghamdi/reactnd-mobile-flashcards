@@ -14,14 +14,41 @@ class AddDeck extends Component {
 
     handleSubmit = () => {
       this.props.dispatch(handleAddDeck(this.state.text))
+        // const { decks } = this.props;
+        // let deckID = "";
+        // const deckValues = Object.values(decks);
+        // console.log("object values,,,, ", deckValues);
+        // if (deckValues != []){
+        //     Object.values(decks).map(item => {
+        //       console.log(" state text out before if ", this.state.text);
+
+        //       if (item.title === this.state.text) {
+        //         console.log(" state text in if ", this.state.text);
+        //         deckID = item.id;
+        //         return deckID;
+        //       }
+        //     });
+        //     console.log(
+        //       "deck id in submit add deck ..",
+        //       deckID,
+        //       " .. title in text state ",
+        //       this.state.text
+        //     );
+        // }   
+          
+        // this.props.navigation.navigate("DeckPage", { deckID });
+
+      
         this.setState(()=>{
             return { text: ""}
         })
+        
     }
     render() {
+      // state => redirect: true, filter through decks using title then navigate to specific page 
         return (
           <View style={styles.adddeck}>
-            <Text> This is add deck</Text>
+            <Text>Add a new deck:</Text>
             <TextInput
             label="Title"
               style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
@@ -38,7 +65,8 @@ class AddDeck extends Component {
 }
 
 function mapStateToProps(decks){
-  // console.log("state . decks", decks)
+  console.log("state . decks //////////", decks)
+ 
   return {
     decks
   }

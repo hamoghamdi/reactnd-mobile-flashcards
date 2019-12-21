@@ -33,8 +33,7 @@ class Decks extends Component {
         </Text>
           <FlatList
           data={this.props.decksToArray} 
-          renderItem={this.renderItem}/>
-        {/* <Text>This is Decks</Text> */}
+          renderItem={this.renderItem} />
       </View>
     );
   }

@@ -15,6 +15,7 @@ import middleware from './redux/middleware'
 
 import DeckPage from './components/DeckPage'
 import AddCard from "./components/AddCard";
+import QuizPage from './components/QuizPage'
 
 
 const store = createStore(decks, middleware);
@@ -36,15 +37,20 @@ export default class App extends Component {
 const DecksStack = createStackNavigator({
   Decks: Decks,
   DeckPage: DeckPage,
-  AddCard: AddCard
+  AddCard: AddCard,
+  QuizPage: QuizPage
+});
+const QuizStack = createStackNavigator({
+  Decks: Decks,
+  DeckPage: DeckPage,
+  QuizPage: QuizPage
 });
 
 // from add deck toab to A deck 
 const AddDeckStack = createStackNavigator({
   AddDeck: AddDeck,
-  DeckPage: {
-    screen: DeckPage
-  }
+  DeckPage: DeckPage
+  
 });
 
 const Tabs = {
