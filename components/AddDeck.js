@@ -61,9 +61,7 @@ class AddDeck extends Component {
 }
 
 function mapStateToProps(decks){
-  console.log("state . decks //////////", decks)
   const decksValues = Object.values(decks);
-  console.log("these are values ,,,,,, !!!!!!!!!!!", decksValues);
  
   return {
     decks,

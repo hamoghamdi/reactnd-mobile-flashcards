@@ -40,7 +40,6 @@ class Decks extends Component {
 }
 
 function mapStateToProps(decks){
-  // console.log("this is connect in Decks.js", decks)
   const decksToArray = Object.values(decks)
   console.log("decks to array ", decksToArray)
   return {

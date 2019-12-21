@@ -25,8 +25,6 @@ export default function decks(state ={}, action){
     }
 }
 
-// export reducer for create store
-
 
 /*
  state = {

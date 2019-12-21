@@ -6,7 +6,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import Decks from './components/Decks'
 import AddDeck from './components/AddDeck'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { white, purple, red } from './utils/colors'
+import { white, red } from './utils/colors'
 // redux 
 import { createStore } from "redux";
 import { Provider } from "react-redux";
@@ -156,9 +156,9 @@ function setLocalNotification() {
       }
     });
 }
-// clear notification
-function clearLocalNotification() {
-  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
-    Notifications.cancelAllScheduledNotificationsAsync
-  );
-}
+// // clear notification
+// function clearLocalNotification() {
+//   return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
+//     Notifications.cancelAllScheduledNotificationsAsync
+//   );
+// }

@@ -4,11 +4,10 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  FlatList
 } from "react-native";
 import { connect } from "react-redux";
 
-import { red, white } from "../utils/colors";
+import { red, white, incorrectRed, green } from "../utils/colors";
 
 class QuizPage extends Component {
   state = {
@@ -49,9 +48,7 @@ class QuizPage extends Component {
       };
     })
   }
-  backToDeck = () => {
 
-  }
   render() {
     const { cards, deckDetails, id } = this.props;
     const { score, step, showQuestion } = this.state;
@@ -146,13 +143,13 @@ const styles = StyleSheet.create({
     color: white
   },
   correctButton: {
-    backgroundColor: "#33cc33",
+    backgroundColor: green,
     padding: 10,
     margin: 15,
     height: 40
   },
   incorrectButton: {
-    backgroundColor: "#ff0000",
+    backgroundColor: incorrectRed,
     padding: 10,
     margin: 15,
     height: 40

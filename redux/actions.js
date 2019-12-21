@@ -23,7 +23,6 @@ function addDeck(newDeck) {
 export function handleAddDeck(title) {
   return dispatch => {
     const deckID = generateID();
-    // const newDeck = { id: deckID, title, cards: [] };
     dispatch(addDeck({ id: deckID, title, cards: [] }));
   };
 }
@@ -49,16 +48,3 @@ export function handleAddCard(deckID, content) {
   };
 }
 
-// const GET_DECKS = "GET_DECKS"
-// const GET_CARDS = "GET_CARDS"
-// function getDecks (){
-//     return {
-//         type: GET_DECKS
-//     }
-// }
-// function getCards(deckID){
-//     return {
-//         type: GET_CARDS,
-//         deckID,
-//     }
-// }
