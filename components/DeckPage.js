@@ -38,11 +38,22 @@ class DeckPage extends Component {
 }
 
 function mapStateToProps(decks, props){
-    const id = props.navigation.state.params.deckID;
-    const deckDetails = decks[id]
-    console.log("deck details.. ", deckDetails)
-    console.log("deckID in connect deck page..", id)
+    let id = props.navigation.state.params.deckID;
+    const title = props.navigation.state.params.deckTitle;
+    const decksValues = Object.values(decks);
+    
+    if(title !== undefined){
+      decksValues.map(deck => {
+        if (deck.title === title) {
+          id = deck.id;
+        }
+      });
+    } 
+      const deckDetails = decks[id];
+      console.log("deck details.. ", deckDetails);
+      console.log("deckID in connect deck page..", id);
 
+    
     return {
         decks,
         deckDetails,

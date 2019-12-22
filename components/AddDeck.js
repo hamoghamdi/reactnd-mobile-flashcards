@@ -16,31 +16,19 @@ class AddDeck extends Component {
 
     handleSubmit = () => {
       this.props.dispatch(handleAddDeck(this.state.text))
-
+      const title = this.state.text
         this.setState((prev, props)=>{
             return {
               title: prev.text,
               text: "",
               redirect: true
             }
-        })
+        }) 
+      this.props.navigation.navigate("DeckPage", { deckTitle: title });
+      }
         
-        
-    }
     render() {
-      
-      const { decksValues } = this.props
-      const { title, redirect} = this.state
-      let theID = ""
-      if(redirect){
-        decksValues.map(deck => {
-          if (deck.title === title){
-            theID = deck.id;
-          } 
-        });
-        return this.props.navigation.navigate("DeckPage", { deckID: theID })
 
-      } else {
         return (
           <View style={styles.adddeck}>
             <Text>Add a new deck:</Text>
@@ -58,14 +46,13 @@ class AddDeck extends Component {
         );
         }
     }
-}
-
+  
 function mapStateToProps(decks){
-  const decksValues = Object.values(decks);
+  // const decksValues = Object.values(decks);
  
   return {
     decks,
-    decksValues
+    // decksValues
   };
 }
 
